@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -9,9 +9,10 @@ import Dashboard from './pages/trader/Dashboard';
 import Products from './pages/trader/Product';
 import AddProduct from './pages/trader/AddProduct';
 import Inventory from './pages/trader/Inventory';
-import TraderProfileForm from './pages/trader/components/TraderProfileForm'; // Import the trader profile form
+import Overview from './pages/trader/Overview';
+import TraderProfileForm from './pages/trader/components/TraderProfileForm';
 import PrivateRoute from './components/PrivateRoute';
-import Search from './pages/consumer/Search';  // Import the Search component
+import Search from './pages/consumer/Search';
 
 const App = () => {
   return (
@@ -22,16 +23,15 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="trader/dashboard/*" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
-          <Route path="/trader/products" element={<PrivateRoute><Products /></PrivateRoute>} />
-          <Route path="/trader/add-product" element={<PrivateRoute><AddProduct /></PrivateRoute>} />
-          <Route path="/trader/inventory" element={<PrivateRoute><Inventory /></PrivateRoute>} />
-          
-          {/* New route for Trader Profile Form */}
+          <Route path="/consumer/search" element={<Search />} />
           <Route path="/trader/profile" element={<PrivateRoute><TraderProfileForm /></PrivateRoute>} />
 
-          {/* New route for the Search page */}
-          <Route path="/consumer/search" element={<Search />} />
+          <Route path="/trader/dashboard/*" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
+            <Route index element={<Overview />} />
+            <Route path="products" element={<Products />} />
+            <Route path="add-product" element={<AddProduct />} />
+            <Route path="inventory" element={<Inventory />} />
+          </Route>
         </Routes>
       </div>
     </Router>
