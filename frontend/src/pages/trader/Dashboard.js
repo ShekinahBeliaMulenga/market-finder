@@ -1,108 +1,97 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './Dashboard.css'; // Add styles for the dashboard layout
-import { FaProductHunt, FaPlusCircle, FaBoxOpen } from 'react-icons/fa';
-import Skeleton from 'react-loading-skeleton'; // Import the skeleton loader
-import { Spinner } from 'react-bootstrap'; // Importing a spinner for loading effect
+import { FaBoxes, FaPlusCircle, FaWarehouse, FaChartPie } from 'react-icons/fa';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import './Dashboard.css';
 
 const Dashboard = () => {
-  const [activeSection, setActiveSection] = useState('overview'); // Track which section to display
-  const [loading, setLoading] = useState(true); // Track loading state
-  const [data, setData] = useState(null); // Data to display
+  const [activeSection, setActiveSection] = useState('overview');
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
 
-  // Simulate data fetching with a timeout
   useEffect(() => {
     setTimeout(() => {
       setData({
-        totalProducts: 100,
-        totalSales: 250,
+        totalProducts: 120,
+        totalSales: 345,
       });
       setLoading(false);
-    }, 2000); // Simulating a 2-second loading delay
+    }, 1500);
   }, []);
+
+  const navItems = [
+    { id: 'overview', label: 'Overview', icon: <FaChartPie size={28} /> },
+    { id: 'products', label: 'Products', icon: <FaBoxes size={28} /> },
+    { id: 'addProduct', label: 'Add Product', icon: <FaPlusCircle size={28} /> },
+    { id: 'inventory', label: 'Inventory', icon: <FaWarehouse size={28} /> },
+  ];
 
   const renderContent = () => {
     if (loading) {
-      // Display loading skeletons while data is being fetched
       return (
         <div className="dashboard-overview">
-          <div className="overview-card">
-            <Skeleton height={40} />
-          </div>
-          <div className="overview-card">
-            <Skeleton height={40} />
-          </div>
+          <Skeleton count={2} height={120} borderRadius={12} />
         </div>
       );
     }
 
-    // Content to render after data is loaded
     switch (activeSection) {
       case 'overview':
         return (
           <div className="dashboard-overview">
-            <div className="overview-card">
+            <div className="overview-card royal-card">
               <h2>Total Products</h2>
               <p>{data.totalProducts}</p>
             </div>
-            <div className="overview-card">
+            <div className="overview-card royal-card">
               <h2>Total Sales</h2>
               <p>{data.totalSales}</p>
             </div>
           </div>
         );
       case 'products':
-        return <div>Products Section</div>;
+        return (
+          <div className="section-placeholder royal-section">
+            <h3>Products Section</h3>
+          </div>
+        );
       case 'addProduct':
-        return <div>Add Product Section</div>;
+        return (
+          <div className="section-placeholder royal-section">
+            <h3>Add Product Section</h3>
+          </div>
+        );
       case 'inventory':
-        return <div>Inventory Section</div>;
+        return (
+          <div className="section-placeholder royal-section">
+            <h3>Inventory Section</h3>
+          </div>
+        );
       default:
-        return <div>Select an option to view details</div>;
+        return <div>Select a section</div>;
     }
   };
 
   return (
     <div className="dashboard-container">
-      <h1>Welcome to Your Dashboard</h1>
+      <h1 className="royal-title">Trader Dashboard</h1>
 
-      {/* Loading effect while data is being fetched */}
-      {loading ? (
-        <div className="loading-container">
-          <Spinner animation="border" variant="primary" />
-          <p>Loading...</p>
-        </div>
-      ) : (
-        renderContent()
-      )}
+      <div className="content-container">{renderContent()}</div>
 
-      {/* Bottom Navigation */}
-      <div className="dashboard-bottom-nav">
-        <div className="nav-item" onClick={() => setActiveSection('overview')}>
-          <Link to="#" className="dashboard-link">
-            <FaProductHunt size={30} />
-            <p>View Overview</p>
-          </Link>
-        </div>
-        <div className="nav-item" onClick={() => setActiveSection('products')}>
-          <Link to="#" className="dashboard-link">
-            <FaProductHunt size={30} />
-            <p>View Products</p>
-          </Link>
-        </div>
-        <div className="nav-item" onClick={() => setActiveSection('addProduct')}>
-          <Link to="#" className="dashboard-link">
-            <FaPlusCircle size={30} />
-            <p>Add Product</p>
-          </Link>
-        </div>
-        <div className="nav-item" onClick={() => setActiveSection('inventory')}>
-          <Link to="#" className="dashboard-link">
-            <FaBoxOpen size={30} />
-            <p>Manage Inventory</p>
-          </Link>
-        </div>
-      </div>
+      <nav className="dashboard-bottom-nav">
+        {navItems.map(({ id, label, icon }) => (
+          <button
+            key={id}
+            className={`nav-item ${activeSection === id ? 'active' : ''}`}
+            onClick={() => setActiveSection(id)}
+            aria-label={label}
+            title={label}
+          >
+            <span className="icon">{icon}</span>
+            <span className="label">{label}</span>
+          </button>
+        ))}
+      </nav>
     </div>
   );
 };
