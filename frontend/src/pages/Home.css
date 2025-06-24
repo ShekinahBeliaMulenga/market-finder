@@ -1,0 +1,108 @@
+/* Home.css */
+
+.home-container {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    padding: 30px;
+    background-color: #f8f8f8;
+  }
+  
+  .home-header {
+    margin-bottom: 40px;
+  }
+  
+  .home-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .home-description {
+    font-size: 18px;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto 40px;
+  }
+  
+  .home-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-text {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #444;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .btn {
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .primary-btn {
+    background-color: #501e2e;
+    color: white;
+  }
+  
+  .primary-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .secondary-btn {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .secondary-btn:hover {
+    background-color: #218838;
+  }
+  
+  .home-footer {
+    margin-top: 40px;
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .home-footer p {
+    margin: 10px 0;
+  }
+  
+  @media (max-width: 768px) {
+    .home-container {
+      padding: 20px;
+    }
+  
+    .home-title {
+      font-size: 28px;
+    }
+  
+    .home-description {
+      font-size: 16px;
+    }
+  
+    .cta-text {
+      font-size: 18px;
+    }
+  
+    .action-buttons {
+      flex-direction: column;
+    }
+  
+    .btn {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  

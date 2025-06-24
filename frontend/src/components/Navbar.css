@@ -1,0 +1,123 @@
+/* Navbar.css */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0d6efd;
+  color: white;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-brand a {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 25px;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #ffd700;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0;
+  transition: all 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-links {
+    position: absolute;
+    top: 60px;
+    right: 30px;
+    background-color: #0e743c;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    display: none;
+  }
+
+  .navbar-links.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .bar.open:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+
+  .bar.open:nth-child(2) {
+    opacity: 0;
+  }
+
+  .bar.open:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+  }
+}
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --nav-bg: #269d46;
+    --nav-text: white;
+  }
+  
+  [data-theme='dark'] {
+    --bg-color: #121212;
+    --text-color: #f1f1f1;
+    --nav-bg: #1a1a1a;
+    --nav-text: #f1f1f1;
+  }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .navbar {
+    background-color: var(--nav-bg);
+    color: var(--nav-text);
+  }
+  
+  .navbar-links a {
+    color: var(--nav-text);
+  }
+  
+  .theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--nav-text);
+  }
+  

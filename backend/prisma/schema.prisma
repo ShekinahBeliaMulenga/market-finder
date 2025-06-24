@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+// schema.prisma
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // Use the DATABASE_URL from .env file
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+model User {
+  id             Int              @id @default(autoincrement())
+  email          String           @unique
+  password       String
+  role           Role             // TRADER or CONSUMER
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  traderProfile  TraderProfile?
+  consumerProfile ConsumerProfile?
+}
+
+model TraderProfile {
+  id         Int     @id @default(autoincrement())
+  user       User    @relation(fields: [userId], references: [id])
+  userId     Int     @unique
+  shopName   String
+  address    String
+  latitude   Float
+  longitude  Float
+  inventory  Inventory[]
+}
+
+model ConsumerProfile {
+  id         Int     @id @default(autoincrement())
+  user       User    @relation(fields: [userId], references: [id])
+  userId     Int     @unique
+  name       String
+}
+
+model Product {
+  id          Int          @id @default(autoincrement())
+  name        String
+  category    Category     @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  inventory   Inventory[]
+}
+
+model Category {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  products  Product[]
+}
+
+model Inventory {
+  id        Int        @id @default(autoincrement())
+  product   Product    @relation(fields: [productId], references: [id])
+  productId Int
+  trader    TraderProfile @relation(fields: [traderId], references: [id])
+  traderId  Int
+  quantity  Int
+  price     Float
+}
+
+enum Role {
+  TRADER
+  CONSUMER
+}
